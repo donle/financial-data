@@ -6,18 +6,16 @@ import { DashboardModule } from './dashboard/dashboard.module';
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
+    component: LoginComponent
   },
   {
     path: 'dashboard',
-    loadChildren: () => DashboardModule,
+    loadChildren: () => DashboardModule
   }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class BaseRoutingModule {}
