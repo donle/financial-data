@@ -41,6 +41,7 @@ export class File<T extends PrimarySchema> {
       case 'trunc':
         fs.writeFileSync(this.filePath, encText, 'utf-8');
         break;
+
       case 'append':
         fs.appendFileSync(this.filePath, encText, 'utf-8');
         break;
