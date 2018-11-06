@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { DataService } from './services/data.service';
+import { DataLoader } from 'src/utils/data-loader';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,10 @@ import { DataService } from './services/data.service';
 export class AppComponent implements OnDestroy {
   public title = 'data-analytics';
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService) {
+    const dataLoader = new DataLoader();
+    dataLoader.importDefaultData();
+  }
 
   ngOnDestroy() {
     this.dataService.save();

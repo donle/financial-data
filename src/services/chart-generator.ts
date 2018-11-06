@@ -18,7 +18,7 @@ interface IDataPeriod {
 
 export class DataGenerator {
   private periods: IDataPeriod[];
-  private data: any;
+  private data: Chart.ChartData;
   private options: Chart.ChartOptions;
   constructor() {
     this.periods = [];
