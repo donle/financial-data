@@ -29,7 +29,7 @@ export class Schema<T extends PrimarySchema> {
     if (dataType) {
       if (dataType instanceof Array) {
         for (const d of dataType) {
-        //   this.validCheck(d);
+          //   this.validCheck(d);
           this.data.push(d);
         }
       } else {
@@ -39,6 +39,74 @@ export class Schema<T extends PrimarySchema> {
     }
   }
 
+  public get Documents() {
+    return this.data;
+  }
+  public add(documents: Schema<T> | T | T[]) {
+    if (documents instanceof Array) {
+      for (const d of documents) {
+        // this.validCheck(d);
+        this.data.push(d);
+      }
+    } else if (documents instanceof Schema) {
+      this.data = this.data.concat(documents.Documents);
+    } else {
+      //   this.validCheck(documents);
+      this.data.push(documents);
+    }
+  }
+
+  public find(
+    filter: Partial<T>,
+    projection?: Array<keyof T>,
+    filterFn?: (doc: T) => boolean,
+  ) {
+    const results = filterFn
+      ? this.data.filter((doc: T) => this.findFilterFn(filter)(doc) && filterFn(doc))
+      : this.data.filter(this.findFilterFn(filter));
+    if (projection) {
+      return results.map(this.projectionFilterFn(projection));
+    } else {
+      return results;
+    }
+  }
+
+  public findOne(
+    filter: Partial<T>,
+    projection?: Array<keyof T>,
+    filterFn?: (doc: T) => boolean,
+  ) {
+    const result = filterFn
+      ? this.data.find((doc: T) => this.findFilterFn(filter)(doc) && filterFn(doc))
+      : this.data.find(this.findFilterFn(filter));
+    if (!result) {
+      return undefined;
+    } else if (projection) {
+      return this.projectionFilterFn(projection)(result);
+    } else {
+      return result;
+    }
+  }
+
+  public update(filter: Partial<T>, updates: Partial<T>) {
+    const result = this.data.find(this.findFilterFn(filter));
+    if (result) {
+      this.updateValues(result, updates);
+    }
+  }
+
+  public updateMany(filter: Partial<T>, updates: Partial<T>) {
+    const results = this.find(filter);
+    for (const result of results) {
+      this.updateValues(result, updates);
+    }
+  }
+
+  public remove(filter: Partial<T>) {
+    const results = this.data.filter((doc: T) => !this.findFilterFn(filter)(doc));
+    this.data = results;
+  }
+
   private validCheck(document: T) {
     for (const key of Object.keys(document)) {
       if ((document[key] as SchemaValue).primary) {
@@ -46,10 +114,6 @@ export class Schema<T extends PrimarySchema> {
       }
     }
     throw new Error('Unexpected schema: Primary key is not found');
-  }
-
-  public get Documents() {
-    return this.data;
   }
   private findFilterFn(filter: Partial<T>) {
     return (document: T) => {
@@ -79,68 +143,5 @@ export class Schema<T extends PrimarySchema> {
     for (const key of Object.keys(updates)) {
       document[key] = updates[key];
     }
-  }
-
-  public add(documents: Schema<T> | T | T[]) {
-    if (documents instanceof Array) {
-      for (const d of documents) {
-        // this.validCheck(d);
-        this.data.push(d);
-      }
-    } else if (documents instanceof Schema) {
-      this.data = this.data.concat(documents.Documents);
-    } else {
-    //   this.validCheck(documents);
-      this.data.push(documents);
-    }
-  }
-
-  public find(
-    filter: Partial<T>,
-    projection?: Array<keyof T>,
-    filterFn?: (doc: T) => boolean
-  ) {
-    const results = filterFn
-      ? this.data.filter(doc => this.findFilterFn(filter)(doc) && filterFn(doc))
-      : this.data.filter(this.findFilterFn(filter));
-    if (projection) {
-      return results.map(this.projectionFilterFn(projection));
-    } else {
-      return results;
-    }
-  }
-
-  public findOne(
-    filter: Partial<T>,
-    projection?: Array<keyof T>,
-    filterFn?: (doc: T) => boolean
-  ) {
-    const result = filterFn
-      ? this.data.find(doc => this.findFilterFn(filter)(doc) && filterFn(doc))
-      : this.data.find(this.findFilterFn(filter));
-    if (!result) {
-      return undefined;
-    } else if (projection) {
-      return this.projectionFilterFn(projection)(result);
-    } else {
-      return result;
-    }
-  }
-
-  public update(filter: Partial<T>, updates: Partial<T>) {
-    const result = this.data.find(this.findFilterFn(filter));
-    this.updateValues(result, updates);
-  }
-
-  public updateMany(filter: Partial<T>, updates: Partial<T>) {
-    const results = this.find(filter);
-    for (const result of results) {
-      this.updateValues(result, updates);
-    }
-  }
-
-  public remove(filter: Partial<T>) {
-    const results = this.data.filter(doc => !this.findFilterFn(filter)(doc));
-    this.data = results;
   }
 }

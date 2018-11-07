@@ -22,7 +22,7 @@ export namespace Login {
   export function signUp(username: string, password: string) {
     fileStream.Schema.add({
       username,
-      password
+      password,
     });
     fileStream.save();
   }
@@ -30,7 +30,7 @@ export namespace Login {
   export function updatePassword(
     username: string,
     password: string,
-    newPassword: string
+    newPassword: string,
   ) {
     const canSignIn = signIn(username, password);
     if (!canSignIn) {

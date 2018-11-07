@@ -2,8 +2,8 @@ import * as crypto from 'crypto';
 import * as fs from 'fs';
 import { Schema, PrimarySchema } from './schema';
 
-const algorithm = 'aes-256-ctr',
-  password = 'd6F3Efeq';
+const algorithm = 'aes-256-ctr';
+const password = 'd6F3Efeq';
 
 function encrypt(text: string) {
   const cipher = crypto.createCipher(algorithm, password);
@@ -24,14 +24,14 @@ export type SaveFileType = 'trunc' | 'append';
 export class File<T extends PrimarySchema> {
   constructor(private filePath: string) {}
 
-  fecth() {
+  public fecth() {
     const text = fs.existsSync(this.filePath)
       ? decrypt(fs.readFileSync(this.filePath, 'utf-8'))
       : '';
     return new Schema<T>(JSON.parse(text) as T[]);
   }
 
-  save(text: Array<T> | Schema<T>, flag: SaveFileType = 'trunc') {
+  public save(text: T[] | Schema<T>, flag: SaveFileType = 'trunc') {
     if (text instanceof Schema) {
       text = text.Documents;
     }

@@ -1,5 +1,4 @@
 import { Chart } from 'chart.js';
-import { ElementRef } from '@angular/core';
 import { IncomeType } from '../utils/data-loader';
 
 export enum DataInterval {
@@ -7,7 +6,7 @@ export enum DataInterval {
   Weekly,
   Monthly,
   Quarter,
-  Year
+  Year,
 }
 
 interface IDataPeriod {
@@ -18,17 +17,19 @@ interface IDataPeriod {
 
 export class DataGenerator {
   private periods: IDataPeriod[];
-  private data: Chart.ChartData;
-  private options: Chart.ChartOptions;
+  private data: Chart.ChartData | undefined;
+  private options: Chart.ChartOptions | undefined;
   constructor() {
     this.periods = [];
+    this.data = undefined;
+    this.options = undefined;
   }
 
   public addPeriod(start: Date, end: Date, interval: DataInterval) {
     this.periods.push({
       start,
       end,
-      interval
+      interval,
     });
 
     return this.periods.length - 1;
@@ -42,11 +43,11 @@ export class DataGenerator {
     this.periods = [];
   }
 
-  public generateLineChart(element: ElementRef) {
-    return new Chart(element.nativeElement, {
+  public generateLineChart(element: HTMLCanvasElement) {
+    return new Chart(element, {
       type: 'line',
       data: this.data,
-      options: this.options
+      options: this.options,
     });
   }
 }
