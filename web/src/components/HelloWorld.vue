@@ -32,9 +32,16 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { DataLoader } from '@/utils/data-loader';
 
 @Component
 export default class HelloWorld extends Vue {
+  constructor() {
+    super();
+    console.log(123);
+    const data = new DataLoader();
+    data.importDefaultData();
+  }
   @Prop() private msg!: string;
 
   public getMessage() {

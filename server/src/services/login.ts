@@ -1,5 +1,5 @@
-import { FileSystem } from '../services/file';
-import { PrimarySchema, SchemaType } from 'src/services/schema';
+import { FileSystem } from '@/utils/file';
+import { PrimarySchema, SchemaType } from '@/utils/schema';
 
 export namespace Login {
   interface LoginFileSchema extends PrimarySchema {
