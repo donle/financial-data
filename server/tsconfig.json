@@ -16,6 +16,6 @@
     "outDir": "./dist",
     "lib": ["es2017"]
   },
-  "include": ["src/**/*.ts", "app.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -33,7 +33,7 @@ class AppWindow {
   }
 }
 
-function mainEntryPoint(env = 'dev') {
+export function main(env = 'dev') {
   const winApp = new AppWindow({ width: 800, height: 600 });
   const winAppInstance = winApp.getInstance();
 
@@ -53,7 +53,7 @@ function mainEntryPoint(env = 'dev') {
 }
 
 let appInstance: BrowserWindow | undefined;
-AppWindow.onReady(() => (appInstance = mainEntryPoint()));
+AppWindow.onReady(() => (appInstance = main()));
 AppWindow.onWindowAllClosed(() => {
   if (process.platform !== 'darwin') {
     app.quit();
@@ -61,6 +61,6 @@ AppWindow.onWindowAllClosed(() => {
 });
 AppWindow.onActivate(() => {
   if (!appInstance) {
-    appInstance = mainEntryPoint();
+    appInstance = main();
   }
 });
