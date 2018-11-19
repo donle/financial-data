@@ -9,12 +9,8 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "outDir": "./dist",
-    "lib": ["es2017"]
+    "outDir": "./dist/server",
+    "lib": ["es2017", "dom", "dom.iterable"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

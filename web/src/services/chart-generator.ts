@@ -1,5 +1,4 @@
 import { Chart } from 'chart.js';
-import { IncomeType } from '../utils/data-loader';
 
 export enum DataInterval {
   Daily,

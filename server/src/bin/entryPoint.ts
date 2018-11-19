@@ -1,6 +1,7 @@
 import { app, BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import { DataLoader } from '../services/data-loader';
 
 class AppWindow {
   public static onReady(callbackFn: () => void) {
@@ -41,9 +42,9 @@ export function main(env = 'dev') {
   // load the dist folder from Angular
   winAppInstance.loadURL(
     env === 'dev'
-      ? 'http://localhost:4200'
+      ? 'http://localhost:8888'
       : url.format({
-          pathname: path.join(__dirname, `/dist/index.html`),
+          pathname: path.join(__dirname, `../web/index.html`),
           protocol: 'file:',
           slashes: true,
         }),
@@ -53,7 +54,9 @@ export function main(env = 'dev') {
 }
 
 let appInstance: BrowserWindow | undefined;
-AppWindow.onReady(() => (appInstance = main()));
+AppWindow.onReady(() => {
+  appInstance = main();
+});
 AppWindow.onWindowAllClosed(() => {
   if (process.platform !== 'darwin') {
     app.quit();

@@ -1,4 +1,4 @@
-{
+{ 
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -7,16 +7,22 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "outDir": "../server/dist/web",
     "types": [
       "webpack-env"
     ],
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "~/*": [
+        "../server/dist/web"
       ]
     },
     "lib": [

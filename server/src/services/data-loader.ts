@@ -1,6 +1,6 @@
 import * as CsvToJson from 'csvtojson/v2';
-import { FileSystem, SaveFileType } from '@/utils/file';
-import { PrimarySchema, SchemaType } from '@/utils/schema';
+import { FileSystem, SaveFileType } from '../utils/file';
+import { PrimarySchema, SchemaType } from '../utils/schema';
 
 export enum IncomeType {
   Cashier = 'cashier',

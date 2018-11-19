@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import * as fs from 'fs';
+import { fs } from '../bin/fs';
 import { Schema, PrimarySchema } from './schema';
 
 const algorithm = 'aes-256-ctr';
