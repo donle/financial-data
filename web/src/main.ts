@@ -8,3 +8,5 @@ new Vue({
   router,
   render: (h) => h(App),
 }).$mount('#app');
+
+// TODO: loading local data files with nedb

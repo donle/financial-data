@@ -11,18 +11,15 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "baseUrl": ".",
-    "outDir": "../server/dist/web",
+    "outDir": "./dist",
     "types": [
       "webpack-env"
     ],
     "paths": {
       "@/*": [
         "src/*"
-      ],
-      "~/*": [
-        "../server/dist/web"
       ]
     },
     "lib": [
@@ -33,6 +30,7 @@
     ]
   },
   "include": [
+    "entryPoint.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
