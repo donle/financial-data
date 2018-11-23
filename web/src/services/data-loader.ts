@@ -1,6 +1,11 @@
-import CsvToJson from 'csvtojson/v2';
+import DataStore from 'nedb';
+import { remote } from 'electron';
 import { FileSystem, SaveFileType } from '../utils/file';
 import { PrimarySchema, SchemaType } from '../utils/schema';
+
+import * as path from 'path';
+
+const userPath = remote.app.getPath('userData');
 
 export enum IncomeType {
   Cashier = 'cashier',
@@ -15,36 +20,18 @@ export interface DataSchema extends PrimarySchema {
 }
 
 export class DataLoader {
-  private dataFilePath = './src/assets/files/data.enc';
+  private dataFilePath = './assets/files/data.enc';
   private dataSystem = new FileSystem<DataSchema>(this.dataFilePath);
 
   public importDefaultData() {
-    const filePath = './src/assets/files/default-data.enc';
-    CsvToJson()
-      .fromFile(filePath)
-      .subscribe((values: any[], lineNumber: number) => {
-        for (const document of values) {
-          const date = this.parseDate(document.date);
-          this.dataSystem.Schema.add({
-            date,
-            income: [
-              {
-                type: IncomeType.Cashier,
-                amount: document.cashier,
-              },
-              {
-                type: IncomeType.Meituan,
-                amount: document.meituan,
-              },
-              {
-                type: IncomeType.Cash,
-                amount: document.cash,
-              },
-            ],
-          });
-        }
-        this.dataSystem.save();
-      });
+    const filePath = './assets/files/default-data.enc';
+    const db = new DataStore({
+      filename: path.join(userPath, filePath),
+      autoload: true,
+    });
+
+    // tslint:disable-next-line:no-console
+    console.log(db.getAllData());
   }
 
   public save(flag?: SaveFileType) {

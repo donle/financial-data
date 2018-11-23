@@ -32,16 +32,28 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { DataLoader } from '../services/data-loader';
+import DataStore from 'nedb';
+import * as path from 'path';
+
+// TODO: remove test code
+const { remote } = (window as any);
 
 @Component
 export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
+  @Prop()
+  private msg!: string;
+
   constructor() {
     super();
 
-    const loader = new DataLoader();
-    loader.importDefaultData();
+    const userPath = remote.app.getPath('userData');
+    console.log(userPath);
+
+    const filePath = './assets/files/default-data.enc';
+    const db = new DataStore({
+      filename: path.join(userPath, filePath),
+      autoload: true,
+    });
   }
 
   public getMessage() {

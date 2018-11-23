@@ -38,7 +38,10 @@ class AppWindow {
 }
 
 export function main(env = 'dev') {
-  const winApp = new AppWindow({ width: 800, height: 600 });
+  const winApp = new AppWindow({ width: 800, height: 600, webPreferences: {
+    nodeIntegration: false,
+    preload: path.join(__dirname, '../preload.js'),
+  } });
   const winAppInstance = winApp.getInstance();
 
   if (!winAppInstance) {
@@ -53,7 +56,7 @@ export function main(env = 'dev') {
       pathname: path.join(__dirname, `./index.html`),
       protocol: 'file:',
       slashes: true,
-    }),
+    })
   );
   winApp.onClose(() => winApp.releaseInstance());
   return winAppInstance;

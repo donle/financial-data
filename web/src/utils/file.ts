@@ -9,7 +9,7 @@ import * as path from 'path';
 const algorithm = 'aes-256-ctr';
 const password = 'd6F3Efeq';
 const currentPath = path.join(
-  remote.app.getPath('useData'),
+  remote.app.getPath('userData'),
   '/assets/credential.enc',
 );
 
@@ -33,10 +33,11 @@ export class File<T extends PrimarySchema> {
   constructor(private filePath: string) {}
 
   public fecth() {
-    const text = fs.existsSync(this.filePath)
-      ? decrypt(fs.readFileSync(this.filePath, 'utf-8'))
-      : '';
-    return new Schema<T>(JSON.parse(text) as T[]);
+    // const text = fs.existsSync(this.filePath)
+    //   ? decrypt(fs.readFileSync(this.filePath, 'utf-8'))
+    //   : '';
+      const text = '';
+      return new Schema<T>(JSON.parse(text) as T[]);
   }
 
   public save(text: T[] | Schema<T>, flag: SaveFileType = 'trunc') {
@@ -47,11 +48,11 @@ export class File<T extends PrimarySchema> {
     const encText = encrypt(JSON.stringify(text));
     switch (flag) {
       case 'trunc':
-        fs.writeFileSync(this.filePath, encText, 'utf-8');
+        // fs.writeFileSync(this.filePath, encText, 'utf-8');
         break;
 
       case 'append':
-        fs.appendFileSync(this.filePath, encText, 'utf-8');
+        // fs.appendFileSync(this.filePath, encText, 'utf-8');
         break;
       default:
         throw new TypeError();
