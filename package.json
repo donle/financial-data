@@ -1,12 +1,12 @@
 {
-  "name": "financial-data-vue",
+  "name": "financial-data",
   "version": "0.1.0",
   "main": "./dist/entryPoint.js",
   "private": true,
   "scripts": {
     "dev": "npm run build && electron .",
     "serve": "vue-cli-service serve --port 8888",
-    "build": "tsc entryPoint.ts --module commonjs --outDir \"./dist\" | vue-cli-service build",
+    "build": "vue-cli-service build && tsc entryPoint.ts --module commonjs --outDir \"./dist\"",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

@@ -2,6 +2,8 @@ import { app, BrowserWindow, BrowserWindowConstructorOptions } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
+app.setPath('userData', __dirname);
+
 class AppWindow {
   public static onReady(callbackFn: () => void) {
     app.on('ready', callbackFn);
@@ -56,7 +58,7 @@ export function main(env = 'dev') {
       pathname: path.join(__dirname, `./index.html`),
       protocol: 'file:',
       slashes: true,
-    })
+    }),
   );
   winApp.onClose(() => winApp.releaseInstance());
   return winAppInstance;

@@ -32,11 +32,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import DataStore from 'nedb';
-import * as path from 'path';
-
-// TODO: remove test code
-const { remote } = (window as any);
+import { DataLoader } from '@/services/data-loader';
+import { FinanceDataStore } from '@/utils/datastore';
 
 @Component
 export default class HelloWorld extends Vue {
@@ -46,14 +43,7 @@ export default class HelloWorld extends Vue {
   constructor() {
     super();
 
-    const userPath = remote.app.getPath('userData');
-    console.log(userPath);
-
-    const filePath = './assets/files/default-data.enc';
-    const db = new DataStore({
-      filename: path.join(userPath, filePath),
-      autoload: true,
-    });
+    // const res = DataLoader.importDefaultData();
   }
 
   public getMessage() {
