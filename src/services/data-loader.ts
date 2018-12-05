@@ -1,13 +1,6 @@
-import { FinanceDataStore, DataSchema } from '@/utils/datastore';
+import { IncomeType, FinanceDataStore } from '@/utils/datastore';
 import { fs, SYSTEM_PATH } from '@/utils/system';
 import * as path from 'path';
-
-export enum IncomeType {
-  Cashier = 'cashier',
-  Meituan = 'meituan',
-  Cash = 'cash',
-  All = 'all',
-}
 
 export namespace DataLoader {
   export function importDefaultData() {

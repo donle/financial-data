@@ -4,6 +4,9 @@ import * as url from 'url';
 
 app.setPath('userData', __dirname);
 
+import { LoginDataStore, FinanceDataStore } from './src/preinstall/db_install';
+(global as any).db = { LoginDataStore, FinanceDataStore };
+
 class AppWindow {
   public static onReady(callbackFn: () => void) {
     app.on('ready', callbackFn);
@@ -42,7 +45,7 @@ class AppWindow {
 export function main(env = 'dev') {
   const winApp = new AppWindow({ width: 800, height: 600, webPreferences: {
     nodeIntegration: false,
-    preload: path.join(__dirname, '../preload.js'),
+    preload: path.join(__dirname, './src/preinstall/preload.js'),
   } });
   const winAppInstance = winApp.getInstance();
 

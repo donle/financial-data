@@ -33,7 +33,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { DataLoader } from '@/services/data-loader';
-import { FinanceDataStore } from '@/utils/datastore';
+import { DB } from '@/utils/system';
 
 @Component
 export default class HelloWorld extends Vue {
@@ -43,7 +43,7 @@ export default class HelloWorld extends Vue {
   constructor() {
     super();
 
-    // const res = DataLoader.importDefaultData();
+    const res = DataLoader.importDefaultData();
   }
 
   public getMessage() {

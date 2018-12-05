@@ -1,7 +1,7 @@
 { 
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es2015",
+    "module": "commonjs",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -30,14 +30,10 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "entryPoint.ts",
+    "src/preinstall/*.ts"
   ],
   "exclude": [
-    "src/preinstall/*.ts",
     "node_modules"
   ]
 }
