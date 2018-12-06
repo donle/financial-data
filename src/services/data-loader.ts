@@ -1,6 +1,8 @@
-import { IncomeType, FinanceDataStore } from '@/utils/datastore';
-import { fs, SYSTEM_PATH } from '@/utils/system';
+import { IncomeType } from '@/utils/datastore';
+import { fs, SYSTEM_PATH, DB } from '@/utils/system';
 import * as path from 'path';
+
+const { FinanceDataStore } = DB;
 
 export namespace DataLoader {
   export function importDefaultData() {

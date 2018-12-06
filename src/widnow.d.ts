@@ -9,9 +9,4 @@ declare global {
     remote: Remote;
     ipcRenderer: IpcRenderer;
   }
-
-  export interface db {
-    LoginDataStore: DataStore<LoginSchema>;
-    FinanceDataStore: DataStore<DataSchema>;
-  }
 }

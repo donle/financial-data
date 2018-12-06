@@ -1,4 +1,6 @@
-import { LoginDataStore } from '@/utils/datastore';
+import { DB } from '@/utils/system';
+
+const { LoginDataStore } = DB;
 
 export namespace Login {
 
