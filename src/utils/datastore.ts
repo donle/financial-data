@@ -68,6 +68,8 @@ export class DataStore<T> extends NeDB {
     });
   }
 
+  public insertAsync(newDoc: T[]): Promise<T[]>;
+  public insertAsync(newDoc: T): Promise<T>;
   public insertAsync(newDoc: T | T[]): Promise<T | T[]> {
     return new Promise<T | T[]>((resolve, reject) => {
       super.insert<T | T[]>(newDoc, (err, document) => {

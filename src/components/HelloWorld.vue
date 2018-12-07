@@ -34,6 +34,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { DataLoader } from '@/services/data-loader';
 import { DB } from '@/utils/system';
+import { DataSchema } from '@/utils/datastore';
 
 @Component
 export default class HelloWorld extends Vue {
