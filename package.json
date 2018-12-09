@@ -11,8 +11,8 @@
     "build": "vue-cli-service build && tsc --project tsconfig.preinstall.json && npm run cp-assets",
     "lint": "vue-cli-service lint",
     "cp-assets": "copyfiles \"./src/assets/files/*.*\" \"./dist\"",
-    "dist": "electron-builder",
-    "pack": "npm run build && rm -rf ./build && electron-builder --dir"
+    "dist": "npm run build && electron-builder",
+    "pack": "electron-builder --dir"
   },
   "dependencies": {
     "moment": "^2.22.2",
@@ -44,12 +44,24 @@
   },
   "build": {
     "appId": "app.electron.finance.data",
+    "asarUnpack": [
+      "./dist/src/assets"
+    ],
     "directories": {
       "output": "./build"
     },
+    "win": {
+      "target": "nsis"
+    },
     "mac": {
       "category": "category.type"
-    }
+    },
+    "extraResources": [
+      {
+        "from": "./dist/src/assets",
+        "to": "assets"
+      }
+    ]
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

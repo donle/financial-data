@@ -2,7 +2,7 @@ import NeDB from 'nedb';
 import * as path from 'path';
 import { app } from 'electron';
 
-const PATH_PREFIX = path.join(app.getPath('userData'), './db/');
+const PATH_PREFIX = path.join(app.getPath('userData'), './assets/db/');
 const LOGIN_DB_PATH = path.join(PATH_PREFIX, 'credential.db');
 const FINANCE_DB_PATH = path.join(PATH_PREFIX, 'data.db');
 
