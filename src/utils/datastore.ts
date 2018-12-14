@@ -2,7 +2,7 @@ import NeDB from 'nedb';
 import * as path from 'path';
 import { SYSTEM_PATH } from './system';
 
-const PATH_PREFIX = path.join(SYSTEM_PATH, './db/');
+const PATH_PREFIX = path.join(SYSTEM_PATH, './assets/db/');
 const LOGIN_DB_PATH = path.join(PATH_PREFIX, 'credential.db');
 const FINANCE_DB_PATH = path.join(PATH_PREFIX, 'data.db');
 
@@ -26,7 +26,7 @@ export class DataStore<T> extends NeDB {
   public findAsync(query: any, projection?: T): Promise<T[]> {
     return new Promise<T[]>((resolve, reject) => {
       if (projection) {
-        super.find<T>(query, projection, (err, documents) => {
+        this.find<T>(query, projection, (err, documents) => {
           if (err) {
             reject(err);
           } else {
@@ -34,7 +34,7 @@ export class DataStore<T> extends NeDB {
           }
         });
       } else {
-        super.find<T>(query, (err, documents) => {
+        this.find<T>(query, (err, documents) => {
           if (err) {
             reject(err);
           } else {
@@ -49,7 +49,7 @@ export class DataStore<T> extends NeDB {
   public findOneAsync(query: any, projection?: T): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       if (projection) {
-        super.findOne<T>(query, projection, (err, documents) => {
+        this.findOne<T>(query, projection, (err, documents) => {
           if (err) {
             reject(err);
           } else {
@@ -57,7 +57,7 @@ export class DataStore<T> extends NeDB {
           }
         });
       } else {
-        super.findOne<T>(query, (err, documents) => {
+        this.findOne<T>(query, (err, documents) => {
           if (err) {
             reject(err);
           } else {
@@ -72,7 +72,7 @@ export class DataStore<T> extends NeDB {
   public insertAsync(newDoc: T): Promise<T>;
   public insertAsync(newDoc: T | T[]): Promise<T | T[]> {
     return new Promise<T | T[]>((resolve, reject) => {
-      super.insert<T | T[]>(newDoc, (err, document) => {
+      this.insert<T | T[]>(newDoc, (err, document) => {
         if (err) {
           reject(err);
         } else {
@@ -89,7 +89,7 @@ export class DataStore<T> extends NeDB {
     options?: NeDB.UpdateOptions,
   ): Promise<number> {
     return new Promise<number>((resolve, reject) => {
-      super.update(query, updateQuery, options, (err, numOfUpdates, upsert) => {
+      this.update(query, updateQuery, options, (err, numOfUpdates, upsert) => {
         if (err) {
           reject(err);
         } else {
@@ -106,7 +106,7 @@ export class DataStore<T> extends NeDB {
   ): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       if (options) {
-        super.remove(query, options, (err, n) => {
+        this.remove(query, options, (err, n) => {
           if (err) {
             reject(err);
           } else {
@@ -114,7 +114,7 @@ export class DataStore<T> extends NeDB {
           }
         });
       } else {
-        super.remove(query, (err, n) => {
+        this.remove(query, (err, n) => {
           if (err) {
             reject(err);
           } else {

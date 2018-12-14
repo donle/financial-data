@@ -10,7 +10,7 @@
     "serve": "vue-cli-service serve --port 8888",
     "build": "vue-cli-service build && tsc --project tsconfig.preinstall.json && npm run cp-assets",
     "lint": "vue-cli-service lint",
-    "cp-assets": "copyfiles \"./src/assets/files/*.*\" \"./dist\"",
+    "cp-assets": "copyfiles \"./src/assets/+(files|db)/*.*\" \"./dist\"",
     "dist": "npm run build && electron-builder",
     "pack": "electron-builder --dir"
   },
@@ -44,9 +44,6 @@
   },
   "build": {
     "appId": "app.electron.finance.data",
-    "asarUnpack": [
-      "./dist/src/assets"
-    ],
     "directories": {
       "output": "./build"
     },
@@ -58,7 +55,7 @@
     },
     "extraResources": [
       {
-        "from": "./dist/src/assets",
+        "from": "./dist/src/assets/",
         "to": "assets"
       }
     ]
